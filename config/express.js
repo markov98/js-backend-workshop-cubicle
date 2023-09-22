@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 
 module.exports = (app) => {
     
-    //TODO: Setup the view engine
+    app.engine('hbs', handlebars({ extname: 'hbs' }));
+    app.set('view engine', 'hbs');
+    
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
 
-    //TODO: Setup the body parser
-
-    //TODO: Setup the static files
+    app.use(express.static('public'));
 
 };
