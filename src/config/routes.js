@@ -1,5 +1,9 @@
-// TODO: Require Controllers...
+const router = require("express").Router();
+
+router.get('/', (req, res) => {
+    res.render("index");
+})
 
 module.exports = (app) => {
-    // TODO...
+    app.use(router);
 };
