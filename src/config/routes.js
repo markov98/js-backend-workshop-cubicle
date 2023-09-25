@@ -5,7 +5,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('*', (req, res) => {
-    res.render("404");
+    res.status(404).render("404");
 });
 
 module.exports = (app) => {
