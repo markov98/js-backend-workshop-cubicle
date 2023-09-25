@@ -1,8 +1,7 @@
 const router = require("express").Router();
+const homeContrl = require('../controllers/homeController.js');
 
-router.get('/', (req, res) => {
-    res.render("index");
-});
+router.use(homeContrl);
 
 router.get('*', (req, res) => {
     res.status(404).render("404");
