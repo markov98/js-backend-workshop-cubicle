@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
-router.get('/cube', (req, res) => {
-    res.send("Hello!");
+router.get('/create', (req, res) => {
+    res.render('create');
 });
 
 module.exports = router;
