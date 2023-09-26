@@ -7,7 +7,9 @@ exports.create = (cubeData) => {
         id: uniqid(),
         ...cubeData
     };
+
     cubes.push(newCube);
+    
     return newCube;
 }
 
