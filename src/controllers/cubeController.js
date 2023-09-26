@@ -7,7 +7,8 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-    cubeService.create(req.body);
+    const {name, description, difficultyLevel} =  req.body;
+    cubeService.create({name, description, difficultyLevel: Number(difficultyLevel)})
     res.redirect('/');
 });
 
