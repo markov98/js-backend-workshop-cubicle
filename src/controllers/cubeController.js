@@ -2,7 +2,7 @@ const router = require("express").Router();
 const cubeService = require('../services/cubeService.js');
 
 router.get('/create', (req, res) => {
-    res.render('create');
+    res.render('cubes/create');
 });
 
 router.post('/create', (req, res) => {
@@ -19,7 +19,7 @@ router.get('/details/:id', (req, res) => {
         res.redirect('/404')
     }
 
-    res.render('details', {cube});
+    res.render('cubes/details', {cube});
 });
 
 module.exports = router;
