@@ -1,20 +1,9 @@
 const Cube = require('../models/Cube');
 
-const cubes = [
-    {
-        id: 'nwl33cln05tdp4',
-        name: 'cube1',
-        description: 'testing',
-        imageUrl: '/test/123',
-        difficultyLevel: 2
-    }
-];
-
 exports.create = async (cubeData) => await Cube.create(cubeData);
 
-
-exports.getAll = (search, from, to) => {
-    let filterCubes = [...cubes];
+exports.getAll = async (search, from, to) => {
+    let filterCubes = await Cube.find();
 
     if (search) {
         filterCubes = filterCubes.filter((cube) =>
