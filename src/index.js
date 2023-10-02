@@ -8,7 +8,7 @@ require('./config/routes')(app);
 
 // Connecting to DB
 require('./config/dbConfig')(DBURL)
-    .then(() => { console.log('Connected to DB!') })
+    .then(() => console.log('Connected to DB!'))
     .catch((err) => console.log(err));
 
 app.listen(PORT, console.log(`Listening on port ${PORT}...`));
