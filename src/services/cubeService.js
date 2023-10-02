@@ -3,8 +3,8 @@ const Cube = require('../models/Cube');
 exports.create = async (cubeData) => await Cube.create(cubeData);
 
 exports.getAll = async (search, from, to) => {
-    let filterCubes = await Cube.find();
-
+    let filterCubes = await Cube.find().lean();
+    
     if (search) {
         filterCubes = filterCubes.filter((cube) =>
             cube.name.toLowerCase().includes(search.toLowerCase())
@@ -26,4 +26,4 @@ exports.getAll = async (search, from, to) => {
     return filterCubes;
 }
 
-exports.getById = async (id) => await Cube.findById(id);
+exports.getById = async (id) => await Cube.findById(id).lean();
