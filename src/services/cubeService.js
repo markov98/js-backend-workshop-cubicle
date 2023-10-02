@@ -1,4 +1,3 @@
-const uniqid = require('uniqid');
 const Cube = require('../models/Cube');
 
 const cubes = [
