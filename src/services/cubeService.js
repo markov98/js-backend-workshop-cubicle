@@ -4,7 +4,7 @@ exports.create = async (cubeData) => await Cube.create(cubeData);
 
 exports.getAll = async (search, from, to) => {
     let filterCubes = await Cube.find().lean();
-    
+
     if (search) {
         filterCubes = filterCubes.filter((cube) =>
             cube.name.toLowerCase().includes(search.toLowerCase())
@@ -26,9 +26,6 @@ exports.getAll = async (search, from, to) => {
     return filterCubes;
 }
 
-exports.getById = async (id) => await Cube.findById(id);
+exports.getById = async (id) => await Cube.findById(id).lean();
 
-exports.attach = async (accessory, cube) => {
-    cube.accessories.push(accessory);
-    return cube.save();
-}
+exports.attach = async (accessory, cubeId) => Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessory } });
