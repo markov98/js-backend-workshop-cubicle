@@ -6,8 +6,8 @@ router.get('/add-accessory', (req, res) => {
 });
 
 router.post('/add-accessory', async (req, res) => {
-    const { name, descreiption, imageUrl } = req.body;
-    await accessoryService.create({ name, descreiption, imageUrl });
+    const { name, description, imageUrl } = req.body;
+    await accessoryService.create({ name, description, imageUrl });
     res.redirect('/');
 });
 

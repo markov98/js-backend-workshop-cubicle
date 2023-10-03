@@ -26,6 +26,6 @@ exports.getAll = async (search, from, to) => {
     return filterCubes;
 }
 
-exports.getById = async (id) => await Cube.findById(id).lean();
+exports.getById = async (id) => await Cube.findById(id).populate('accessories');
 
 exports.attach = async (accessory, cubeId) => Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessory } });
