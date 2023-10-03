@@ -26,4 +26,9 @@ exports.getAll = async (search, from, to) => {
     return filterCubes;
 }
 
-exports.getById = async (id) => await Cube.findById(id).lean();
+exports.getById = async (id) => await Cube.findById(id);
+
+exports.attach = async (accessory, cube) => {
+    cube.accessories.push(accessory);
+    return cube.save();
+}
