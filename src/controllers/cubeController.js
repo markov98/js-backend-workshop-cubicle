@@ -19,14 +19,14 @@ router.get('/:cubeId/details', async (req, res) => {
         res.redirect('/404')
     }
 
-    const hasAccessories = cube.accessories.length > 0;
+    const hasAccessories = cube.accessories?.length > 0;
 
     res.render('cubes/details', { cube, hasAccessories });
 });
 
 router.get('/:cubeId/attach-accessory', async (req, res) => {
-    const accessories = await accessoryService.getAll();
     const cube = await cubeService.getById(req.params.cubeId);
+    const accessories = await accessoryService.getWithoutOwned(cube.accessories);
     const hasAccessory = accessories.length > 0;
 
     res.render('accessory/attach', { accessories, hasAccessory, cube });
