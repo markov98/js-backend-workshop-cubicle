@@ -1,7 +1,7 @@
 const Accessory = require('../models/Accessory');
 
-exports.create = async (accessoryData) => await Accessory.create(accessoryData);
+exports.create = (accessoryData) => Accessory.create(accessoryData);
 
-exports.getAll = async () => await Accessory.find().lean();
+exports.getAll = () => Accessory.find();
 
-exports.getWithoutOwned = async (accessoryIds) => await Accessory.find({ _id: { $nin: accessoryIds } }).lean();
+exports.getWithoutOwned = (accessoryIds) => Accessory.find({ _id: { $nin: accessoryIds } });
