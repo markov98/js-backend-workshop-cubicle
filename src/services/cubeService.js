@@ -3,27 +3,22 @@ const Cube = require('../models/Cube');
 exports.create = (cubeData) => Cube.create(cubeData);
 
 exports.getAll = (search, from, to) => {
-    let filterCubes = Cube.find();
+    let query = Cube.find();
 
     if (search) {
-        filterCubes = filterCubes.filter((cube) =>
-            cube.name.toLowerCase().includes(search.toLowerCase())
-        );
+        query = query.where('name', new RegExp(search, 'i'));
     }
 
     if (from) {
-        filterCubes = filterCubes.filter(
-            (cube) => cube.difficultyLevel >= Number(from)
-        );
+        query = query.where('difficultyLevel').gte(Number(from));
     }
 
     if (to) {
-        filterCubes = filterCubes.filter(
-            (cube) => cube.difficultyLevel <= Number(to)
-        );
+        query = query.where('difficultyLevel').lte(Number(to));
     }
 
-    return filterCubes;
+    const filteredCubes = query.exec();
+    return filteredCubes;
 }
 
 exports.getById = (id) => Cube.findById(id).populate('accessories');
