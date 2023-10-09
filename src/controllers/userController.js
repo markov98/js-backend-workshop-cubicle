@@ -5,7 +5,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', (req, res) => {
-    console.log(req.body);
+    const { username, password, repeatPassword } = req.body;
     res.redirect('/users/login');
 });
 
