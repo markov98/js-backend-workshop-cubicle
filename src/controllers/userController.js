@@ -19,4 +19,15 @@ router.get('/login', (req, res) => {
     res.render('user/login');
 });
 
+router.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await userService.login(username, password);
+
+        console.log(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 module.exports = router;
