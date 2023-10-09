@@ -6,9 +6,13 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { username, password, repeatPassword } = req.body;
-    await userService.register(username, password, repeatPassword);
-    res.redirect('/users/login');
+    try {
+        const { username, password, repeatPassword } = req.body;
+        await userService.register(username, password, repeatPassword);
+        res.redirect('/users/login');
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 router.get('/login', (req, res) => {
