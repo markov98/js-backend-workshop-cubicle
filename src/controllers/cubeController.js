@@ -45,4 +45,8 @@ router.get('/:cubeId/edit', (req, res) => {
     res.render('cubes/edit');
 });
 
+router.get('/:cubeId/delete', (req, res) => {
+    res.render('cubes/delete');
+});
+
 module.exports = router;
