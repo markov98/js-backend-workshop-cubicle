@@ -1,5 +1,6 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 module.exports = (app) => {
@@ -10,6 +11,8 @@ module.exports = (app) => {
     
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
+
+    app.use(cookieParser());
 
     app.use(express.static('src/public'));
 

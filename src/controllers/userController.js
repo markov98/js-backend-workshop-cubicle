@@ -24,7 +24,8 @@ router.post('/login', async (req, res) => {
         const { username, password } = req.body;
         const user = await userService.login(username, password);
 
-        console.log(user);
+        res.cookie('auth');
+        res.redirect('/');
     } catch (err) {
         console.log(err);
     }
