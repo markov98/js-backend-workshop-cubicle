@@ -2,6 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const { auth } = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
     
@@ -16,4 +17,5 @@ module.exports = (app) => {
 
     app.use(express.static('src/public'));
 
+    app.use(auth());
 };
