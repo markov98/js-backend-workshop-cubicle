@@ -12,7 +12,11 @@ exports.login = async (username, password) => {
         throw new Error('Invalid username or password!');
     }
 
-    const payload = {};
+    const payload = {
+        _id: user._id,
+        username: user.username
+    };
+
     const token = await jwt.sign(payload, SECRET, {expiresIn: '3d'});
 
     return token;
