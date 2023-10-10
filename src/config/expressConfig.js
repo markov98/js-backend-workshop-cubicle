@@ -17,5 +17,5 @@ module.exports = (app) => {
 
     app.use(express.static('src/public'));
 
-    app.use(auth());
+    app.use(auth);
 };
