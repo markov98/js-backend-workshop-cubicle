@@ -49,8 +49,11 @@ router.get('/:cubeId/edit', async (req, res) => {
     res.render('cubes/edit', { cube, options });
 });
 
-router.get('/:cubeId/delete', (req, res) => {
-    res.render('cubes/delete');
+router.get('/:cubeId/delete', async (req, res) => {
+    const cube = await cubeService.getById(req.params.cubeId).lean();
+    const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
+
+    res.render('cubes/delete', { cube, options });
 });
 
 module.exports = router;
