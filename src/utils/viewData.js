@@ -13,7 +13,7 @@ exports.difficultyLevelOptionsViewData = (difficultyLevel) => {
         return {
             title: `${value} - ${title}`,
             value,
-            selected: Number(difficultyLevel) === value,
+            selected: Number(difficultyLevel) === value ? 'selected' : '',
         };
     });
 
