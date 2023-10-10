@@ -49,11 +49,24 @@ router.get('/:cubeId/edit', async (req, res) => {
     res.render('cubes/edit', { cube, options });
 });
 
+router.post('/:cubeId/edit', async (req, res) => {
+    const { cubeId } = req.params
+    const { name, description, imageUrl, difficultyLevel } = req.body;
+
+    await cubeService.update(cubeId, { name, description, imageUrl, difficultyLevel: Number(difficultyLevel) });
+
+    res.redirect(`/cubes/${cubeId}/details`);
+});
+
 router.get('/:cubeId/delete', async (req, res) => {
     const cube = await cubeService.getById(req.params.cubeId).lean();
     const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
 
     res.render('cubes/delete', { cube, options });
+});
+
+router.post('/:cubeId/delete', async (req, res) => {
+    //TODO: Finish the delete funtionality
 });
 
 module.exports = router;
