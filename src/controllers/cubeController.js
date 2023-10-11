@@ -25,8 +25,9 @@ router.get('/:cubeId/details', async (req, res) => {
     }
 
     const hasAccessories = cube.accessories?.length > 0;
+    const isOwner = cube.owner?.toString() === req.user._id;
 
-    res.render('cubes/details', { cube, hasAccessories });
+    res.render('cubes/details', { cube, hasAccessories, isOwner });
 });
 
 // Attach accessory page
