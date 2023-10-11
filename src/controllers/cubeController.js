@@ -66,7 +66,9 @@ router.get('/:cubeId/delete', async (req, res) => {
 });
 
 router.post('/:cubeId/delete', async (req, res) => {
-    //TODO: Finish the delete funtionality
+    await cubeService.delete(req.params.cubeId);
+
+    res.redirect("/");
 });
 
 module.exports = router;
