@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const userService = require('../services/userService');
+const { isPasswordValid, isUsernameValid } = require('../middlewares/validationMiddleware');
 
 // Register Page
 
@@ -7,15 +8,9 @@ router.get('/register', (req, res) => {
     res.render('user/register');
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', isUsernameValid, isPasswordValid, async (req, res) => {
     try {
         const { username, password, repeatPassword } = req.body;
-
-        if (!password || password.length < 3) {
-            return res.send('Password must be at least 3 chars long.');
-        } else if (!username || username.length < 3) {
-            return res.send('Username must be at lest 3 chars long.');
-        }
 
         await userService.register(username, password, repeatPassword);
         res.redirect('/users/login');
