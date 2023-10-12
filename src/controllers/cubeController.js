@@ -33,10 +33,14 @@ router.get('/:cubeId/details', async (req, res) => {
 
 // Attach accessory page
 
-router.get('/:cubeId/attach-accessory', isAuth, async (req, res) => {
+router.get('/:cubeId/attach-accessory', async (req, res) => {
     const cube = await cubeService.getById(req.params.cubeId).populate();
     const accessories = await accessoryService.getWithoutOwned(cube.accessories).lean();
     const hasAccessory = accessories.length > 0;
+
+    if (cube.owner?.toString() !== req.user?._id) {
+        return res.redirect('/404');
+    }
 
     res.render('accessory/attach', { accessories, hasAccessory, cube });
 });
@@ -52,9 +56,13 @@ router.post('/:cubeId/attach-accessory', isAuth, async (req, res) => {
 
 // Edit Page
 
-router.get('/:cubeId/edit', isAuth, async (req, res) => {
+router.get('/:cubeId/edit', async (req, res) => {
     const cube = await cubeService.getById(req.params.cubeId).lean();
     const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
+
+    if (cube.owner?.toString() !== req.user?._id) {
+        return res.redirect('/404');
+    }
 
     res.render('cubes/edit', { cube, options });
 });
@@ -70,9 +78,13 @@ router.post('/:cubeId/edit', isAuth, async (req, res) => {
 
 // Delete Page
 
-router.get('/:cubeId/delete', isAuth, async (req, res) => {
+router.get('/:cubeId/delete', async (req, res) => {
     const cube = await cubeService.getById(req.params.cubeId).lean();
     const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
+
+    if (cube.owner?.toString() !== req.user?._id) {
+        return res.redirect('/404');
+    }
 
     res.render('cubes/delete', { cube, options });
 });
