@@ -14,7 +14,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Password is required!'],
         minLength: [8, 'Password must be at least 5 characters long!'],
-        match: [/^[A-Za-z0-9]+$/, 'Password must only use English letters and digits!'],
+        validate: {
+            validator: function(value) {
+                return /^[A-Za-z0-9]+$/.test();
+            },
+            massage: 'Password must only use English letters and digits!',
+        }
     }
 });
 
