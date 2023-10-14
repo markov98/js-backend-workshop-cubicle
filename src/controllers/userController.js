@@ -34,7 +34,8 @@ router.post('/login', async (req, res) => {
         res.cookie('auth', token, { httpOnly: true });
         res.redirect('/');
     } catch (err) {
-        console.log(err);
+        const errMessage = err.message;
+        res.status(404).render('user/login', { errMessage });
     }
 });
 
