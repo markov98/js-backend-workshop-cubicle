@@ -27,9 +27,11 @@
       </ul>
     </header>
 
-    <div id="notifications">
-      <p id="notification-massage">Testing</p>
-    </div>
+    {{#if err}}
+      <div id="notifications">
+        <p id="notification-massage">{{err.message}}</p>
+      </div>
+    {{/if}}
 
     {{{body}}}
 

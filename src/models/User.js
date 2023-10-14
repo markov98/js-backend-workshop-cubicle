@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
             validator: function(value) {
                 return /^[A-Za-z0-9]+$/.test(value);
             },
-            massage: 'Password must only use English letters and digits!',
+            message: 'Password must only use English letters and digits!',
         }
     }
 });
@@ -30,7 +30,7 @@ userSchema.path("username").validate(function (username) {
 
 userSchema.virtual('repeatPassword').set(function (value) {
     if (value !== this.password) {
-        throw new mongoose.MongooseError('Passwords do not match!');
+        throw new Error('Passwords do not match!');
     }
 });
 
