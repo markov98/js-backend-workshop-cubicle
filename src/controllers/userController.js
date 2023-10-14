@@ -15,8 +15,8 @@ router.post('/register', isUsernameValid, isPasswordValid, async (req, res) => {
         await userService.register(username, password, repeatPassword);
         res.redirect('/users/login');
     } catch (err) {
-        console.log(err.message);
-        res.status(404).render('user/register', { err });
+        const errMessage = err.message;
+        res.status(404).render('user/register', { errMessage });
     }
 });
 
