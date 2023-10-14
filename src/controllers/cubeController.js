@@ -11,9 +11,14 @@ router.get('/create', isAuth, (req, res) => {
 });
 
 router.post('/create', isAuth, async (req, res) => {
-    const { name, description, imageUrl, difficultyLevel } = req.body;
-    await cubeService.create({ name, description, imageUrl, difficultyLevel: Number(difficultyLevel), owner: req.user });
-    res.redirect('/');
+    try {
+        const { name, description, imageUrl, difficultyLevel } = req.body;
+        await cubeService.create({ name, description, imageUrl, difficultyLevel: Number(difficultyLevel), owner: req.user });
+        res.redirect('/');
+    } catch (err) {
+        const errMessage = err.message;
+        res.status(404).render('cubes/create', { errMessage });
+    }
 });
 
 // Details Page
@@ -73,17 +78,24 @@ router.get('/:cubeId/edit', async (req, res) => {
 });
 
 router.post('/:cubeId/edit', async (req, res) => {
-    const { cubeId } = req.params
-    const { name, description, imageUrl, difficultyLevel } = req.body;
+    const { cubeId } = req.params;
     const cube = await cubeService.getById(cubeId).lean();
 
-    if (cube.owner?.toString() !== req.user?._id) {
-        return res.redirect('/404');
+    try {
+        const { name, description, imageUrl, difficultyLevel } = req.body;
+
+        if (!cube || cube.owner?.toString() !== req.user?._id) {
+            return res.redirect('/404');
+        }
+
+        await cubeService.update(cubeId, { name, description, imageUrl, difficultyLevel: Number(difficultyLevel) });
+
+        res.redirect(`/cubes/${cubeId}/details`);
+    } catch (err) {
+        const errMessage = err.message;
+        const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
+        res.status(404).render('cubes/edit', { errMessage, cube, options });
     }
-
-    await cubeService.update(cubeId, { name, description, imageUrl, difficultyLevel: Number(difficultyLevel) });
-
-    res.redirect(`/cubes/${cubeId}/details`);
 });
 
 // Delete Page
