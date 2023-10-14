@@ -4,7 +4,7 @@ const cubeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Name is required!'],
-        minLength: [5, 'Cube must be at least 5 chars long!'],
+        minLength: [5, 'Name must be at least 5 chars long!'],
         match: [/^[A-Za-z0-9 ]+$/ , 'Name should only contain English letters, digits and white spaces.']
     },
     description: {

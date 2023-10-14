@@ -7,9 +7,14 @@ router.get('/add-accessory', isAuth, (req, res) => {
 });
 
 router.post('/add-accessory', isAuth, async (req, res) => {
-    const { name, description, imageUrl } = req.body;
-    await accessoryService.create({ name, description, imageUrl });
-    res.redirect('/');
+    try {
+        const { name, description, imageUrl } = req.body;
+        await accessoryService.create({ name, description, imageUrl });
+        res.redirect('/');
+    } catch (err) {
+        const errMessage = err.message;
+        res.status(404).render('accessory/create', { errMessage });
+    }
 });
 
 module.exports = router;
