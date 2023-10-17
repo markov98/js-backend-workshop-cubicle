@@ -25,6 +25,6 @@ exports.getById = (id) => Cube.findById(id).populate('accessories');
 
 exports.attach = (accessory, cubeId) => Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessory } });
 
-exports.update = (id, cubeData) => Cube.findByIdAndUpdate(id, cubeData);
+exports.update = (id, cubeData) => Cube.findByIdAndUpdate(id, cubeData, {runValidators: true});
 
 exports.delete = (id) => Cube.findByIdAndDelete(id);
